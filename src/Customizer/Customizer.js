@@ -7,14 +7,14 @@ class Customizer extends Component {
         return(
             <form className="main__form">
             <h2>Customize your laptop</h2>
-            {/* {features} */}
+            {this.props.features}
           
-            {/* <fieldset className="feature" key={featureHash}>
+            <fieldset className="feature" key={this.props.summary.featureHash}>
             <legend className="feature__name">
-                <h3>{feature}</h3>
+                <h3>{this.props.summary.feature}</h3>
             </legend>
-            {options}
-            </fieldset> */}
+            {this.props.summary.options}
+            </fieldset>
             </form>
 
           

@@ -5,10 +5,7 @@ import React, { Component } from 'react'
 class Cart extends Component {
 
   render() {
-    const USCurrencyFormat = new Intl.NumberFormat('en-US', {
-      style: 'currency',
-      currency: 'USD'
-    });
+  
     const summary = Object.keys(this.props.state.selected).map((feature, idx) => {
       const featureHash = feature + '-' + idx;
       const selectedOption = this.props.state.selected[feature];
@@ -18,7 +15,7 @@ class Cart extends Component {
           <div className="summary__option__label">{feature} </div>
           <div className="summary__option__value">{selectedOption.name}</div>
           <div className="summary__option__cost">
-            {USCurrencyFormat.format(selectedOption.cost)}
+            {this.props.USCurrencyFormat.format(selectedOption.cost)}
           </div>
         </div>
       );
@@ -37,7 +34,7 @@ class Cart extends Component {
           <div className="summary__total">
             <div className="summary__total__label">Total</div>
             <div className="summary__total__value">
-              {USCurrencyFormat.format(total)}
+              {this.props.USCurrencyFormat.format(total)}
             </div>
           </div>
         </section>

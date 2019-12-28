@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import Cart from './Cart/Cart'
+import Cart from './Cart/Cart';
+import Customizer from './Customizer/Customizer'
 
 // Normalizes string as a slug - a string that is safe to use
 // in both URLs and html attributes
@@ -36,7 +37,7 @@ class App extends Component {
       }
     }
   };
-
+  //must stay on App.js w/ state
   updateFeature = (feature, newValue) => {
     const selected = Object.assign({}, this.state.selected);
     selected[feature] = newValue;
@@ -81,21 +82,21 @@ class App extends Component {
       );
     });
 
-    //right side - cart
-    // const summary = Object.keys(this.state.selected).map((feature, idx) => {
-    //   const featureHash = feature + '-' + idx;
-    //   const selectedOption = this.state.selected[feature];
+    //summary - pass to both sides
+    const summary = Object.keys(this.state.selected).map((feature, idx) => {
+      const featureHash = feature + '-' + idx;
+      const selectedOption = this.state.selected[feature];
 
-    //   return (
-    //     <div className="summary__option" key={featureHash}>
-    //       <div className="summary__option__label">{feature} </div>
-    //       <div className="summary__option__value">{selectedOption.name}</div>
-    //       <div className="summary__option__cost">
-    //         {USCurrencyFormat.format(selectedOption.cost)}
-    //       </div>
-    //     </div>
-    //   );
-    // });
+      return (
+        <div className="summary__option" key={featureHash}>
+          <div className="summary__option__label">{feature} </div>
+          <div className="summary__option__value">{selectedOption.name}</div>
+          <div className="summary__option__cost">
+            {USCurrencyFormat.format(selectedOption.cost)}
+          </div>
+        </div>
+      );
+    });
 
     // const total = Object.keys(this.state.selected).reduce(
     //   (acc, curr) => acc + this.state.selected[curr].cost,
@@ -108,11 +109,13 @@ class App extends Component {
           <h1>ELF Computing | Laptops</h1>
         </header>
         <main>
-          <form className="main__form">
-            <h2>Customize your laptop</h2>
-            {features}
-          </form>
-          <Cart state={this.state}/>
+          <Customizer
+          features={features}
+          summary={summary} />
+          <Cart 
+          USCurrencyFormat={USCurrencyFormat}
+          summary={summary}
+          state={this.state}/>
         </main>
       </div>
     );
